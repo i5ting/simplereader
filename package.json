@@ -1,0 +1,16 @@
+{
+  "name": "2323",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crawler": "^0.4.3",
+    "jsdom": "^9.4.1",
+    "mkdirp": "^0.5.1"
+  }
+}
