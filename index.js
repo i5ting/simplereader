@@ -1,3 +1,4 @@
+var debug = require('debug')('crawler')
 var Crawler = require("crawler");
 var url = require('url');
 var fs = require('fs');
@@ -26,14 +27,14 @@ var c = new Crawler({
       for(var i = 0; i< urls.length; i++){
         var url = urls[i]
         
-        console.log(i + ' = ' + $(url).attr('href'))
+        debug(i + ' = ' + $(url).attr('href'))
 
         var _url = $(url).attr('href')+"";
         var num = _url.replace('.html','');
         var title = $(url).text();
 
-        console.log(_url)
-        console.log(title)
+        debug(_url)
+        debug(title)
 
         current_book.chapters.push({
           num: num,
@@ -42,7 +43,7 @@ var c = new Crawler({
         })
       }
       
-      console.log(current_book)
+      debug(current_book)
       
       // 
       // one('153070')
@@ -69,7 +70,7 @@ function start(num){
 function get_all_chapters(){
   for(var j = 0; j< current_book.chapters.length; j++){
     var chapter = current_book.chapters[j]
-    // console.log(chapter)
+    // debug(chapter)
     one(current_book, chapter.num)
   }
   
@@ -77,12 +78,12 @@ function get_all_chapters(){
 }
 
 function one(book, chapter){
-  console.log(chapter)
+  debug(chapter)
   
   var arr = [current_book.type, current_book.num]
   
   
-  console.log('http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html')
+  debug('http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html')
   // return;
   // setTimeout(function(){
     c.queue([{
@@ -91,16 +92,15 @@ function one(book, chapter){
         forceUTF8:true,
         // The global callback won't be called
         callback: function (error, result, $) {
-            console.log(error);
-            console.log('http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html')
-            
+            debug(error);
+            debug('http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html')
             var content = $('#content').html();
             utils.write_chapter(current_book, chapter, content);
             
-            console.log(current_book.one + '/'+ (current_book.chapters.length-1) )
+            debug(current_book.one + '/'+ (current_book.chapters.length-1) )
             
             if (current_book.one === current_book.chapters.length-1 ){
-              console.log('complete fetch!')
+              debug('complete fetch!')
               setTimeout(function(){
                 process.exit()
               }, 1000)
