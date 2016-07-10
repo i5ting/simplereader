@@ -97,13 +97,13 @@ function one(book, chapter){
             var content = $('#content').html();
             utils.write_chapter(current_book, chapter, content);
             
-            console.log(current_book.one + ' ='+ current_book.chapters.length )
+            console.log(current_book.one + '/'+ (current_book.chapters.length-1) )
             
-            if (current_book.one === current_book.chapters.length ){
+            if (current_book.one === current_book.chapters.length-1 ){
               console.log('complete fetch!')
               setTimeout(function(){
-                // process.exit()
-              }, 100)
+                process.exit()
+              }, 1000)
             }
             current_book.one++;
         }
