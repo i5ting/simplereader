@@ -97,13 +97,14 @@ function one(book, chapter){
             var content = $('#content').html();
             utils.write_chapter(current_book, chapter, content);
             
-            console.log(current_book.one)
-            // if (current_book.one === current_book.chapters.length ){
-  //             console.log('complete fetch!')
-  //             setTimeout(function(){
-  //               // process.exit()
-  //             }, 1000)
-  //           }
+            console.log(current_book.one + ' ='+ current_book.chapters.length )
+            
+            if (current_book.one === current_book.chapters.length ){
+              console.log('complete fetch!')
+              setTimeout(function(){
+                // process.exit()
+              }, 100)
+            }
             current_book.one++;
         }
     }]);
