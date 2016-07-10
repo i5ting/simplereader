@@ -44,7 +44,7 @@ var c = new Crawler({
       
       console.log(current_book)
       
-      // process.exit()
+      // 
       // one('153070')
       get_all_chapters()
     }
@@ -56,41 +56,60 @@ function info(num){
 
 function start(num){
   // Queue just one URL, with default callback
-  c.queue('http://www.biquku.com/0/' + num + '/');
+  c.queue('http://www.biquku.com/' + num + '/');
   
-  current_book.num = num;
+  var arr = num.split('/')
+  current_book.type = arr[0];
+  current_book.num = arr[1];
+  current_book.one = 0;
   
   info(num)
 }
 
 function get_all_chapters(){
   for(var j = 0; j< current_book.chapters.length; j++){
-    
     var chapter = current_book.chapters[j]
-    console.log(chapter)
-    j++;
-    // one(current_book.num, chapter.num, chapter.title,j*100)
+    // console.log(chapter)
+    one(current_book, chapter.num)
   }
   
   utils.write_config(current_book)
 }
 
-function one(book, chapter, title, t){
-  console.log(book + ',' + chapter + ',' + title  + ',' +  t)
+function one(book, chapter){
+  console.log(chapter)
+  
+  var arr = [current_book.type, current_book.num]
+  
+  
+  console.log('http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html')
+  // return;
   // setTimeout(function(){
-//     // Queue URLs with custom callbacks & parameters
     c.queue([{
-        uri: 'http://www.biquku.com/0/' + book + '/' + chapter + '.html',
+        uri: 'http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html',
         jQuery: jsdom,
         forceUTF8:true,
         // The global callback won't be called
         callback: function (error, result, $) {
-            // console.log();
+            console.log(error);
+            console.log('http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html')
+            
             var content = $('#content').html();
-            utils.write_chapter(book, chapter, content);
+            utils.write_chapter(current_book, chapter, content);
+            
+            console.log(current_book.one)
+            // if (current_book.one === current_book.chapters.length ){
+  //             console.log('complete fetch!')
+  //             setTimeout(function(){
+  //               // process.exit()
+  //             }, 1000)
+  //           }
+            current_book.one++;
         }
     }]);
 //   }, t)
 }
 
-start(330);
+// start('0/330');
+// http://www.biquku.com/6/6327/
+start('6/6327')

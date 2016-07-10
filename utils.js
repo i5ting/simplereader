@@ -9,8 +9,17 @@ exports.mkdir = function(folder){
 
 var fs = require('fs')
 
+exports.write_total_chapter = function(book){
+  var content = " "
+  
+  fs.writeFile('dist/'+ book.type + '/' + book.num + '.html', content, function (err) {
+    if (err) throw err;
+    console.log('It\'s saved!');
+  });
+}
+
 exports.write_chapter = function(book, chapter, content){
-  fs.writeFile('dist/' + book + '/' + chapter + '.html', content, function (err) {
+  fs.writeFile('dist/' + book.type + '/'+ book.num + '/' + chapter + '.html', content, function (err) {
     if (err) throw err;
     console.log('It\'s saved!');
   });
@@ -18,7 +27,7 @@ exports.write_chapter = function(book, chapter, content){
 
 exports.write_config = function(book){
   var content =  JSON.stringify(book, null, 4); // Indented 4 spaces
-  fs.writeFile('dist/' + book.num + '/book.json', content, function (err) {
+  fs.writeFile('dist/'+ book.type + '/' + book.num + '/book.json', content, function (err) {
     if (err) throw err;
     console.log('It\'s saved!');
   });
