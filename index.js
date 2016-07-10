@@ -99,37 +99,46 @@ function one(book, chapter){
   
   var arr = [current_book.type, current_book.num]
   
-  
   debug('http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html')
-  // return;
-  // setTimeout(function(){
+
+  if(require('fs').existsSync(__dirname + '/dist/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html')){
+    if (current_book.one === current_book.chapters.length-1 ){
+      debug('complete fetch!')
+      setTimeout(function(){
+        process.exit()
+      }, 1000)
+    }
+    current_book.one++;
+    
+    return console.log(__dirname + '/dist/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html exist...')
+  } else {
     c.queue([{
-        uri: 'http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html',
-        jQuery: jsdom,
-        forceUTF8:true,
-        // The global callback won't be called
-        callback: function (error, result, $) {
-            //bar
-            // bar.complete
-            bar.tick({ title: current_book.one + '/'+ (current_book.chapters.length-1)  });
-          
-            debug(error);
-            debug('http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html')
-            var content = $('#content').html();
-            utils.write_chapter(current_book, chapter, content);
-            
-            console.log(' ------- ' + current_book.one + '/'+ (current_book.chapters.length-1) )
-            
-            if (current_book.one === current_book.chapters.length-1 ){
-              debug('complete fetch!')
-              setTimeout(function(){
-                process.exit()
-              }, 1000)
-            }
-            current_book.one++;
-        }
+      uri: 'http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html',
+      jQuery: jsdom,
+      forceUTF8:true,
+      // The global callback won't be called
+      callback: function (error, result, $) {
+          //bar
+          // bar.complete
+          bar.tick({ title: current_book.one + '/'+ (current_book.chapters.length-1)  });
+      
+          debug(error);
+          debug('http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html')
+          var content = $('#content').html();
+          utils.write_chapter(current_book, chapter, content);
+        
+          console.log(' ------- ' + current_book.one + '/'+ (current_book.chapters.length-1) )
+        
+          if (current_book.one === current_book.chapters.length-1 ){
+            debug('complete fetch!')
+            setTimeout(function(){
+              process.exit()
+            }, 1000)
+          }
+          current_book.one++;
+      }
     }]);
-//   }, t)
+  }
 }
 
 start('0/330');
