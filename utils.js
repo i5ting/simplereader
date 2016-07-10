@@ -19,6 +19,8 @@ exports.write_total_chapter = function(book){
 }
 
 exports.write_chapter = function(book, chapter, content){
+  content = content.replace('[笔趣库手机版 m.biquku.com]', '')
+  
   fs.writeFile('dist/' + book.type + '/'+ book.num + '/' + chapter + '.html', content, function (err) {
     if (err) throw err;
     console.log('It\'s saved!');
