@@ -1,3 +1,4 @@
+var ProgressBar = require('progress');
 var debug = require('debug')('crawler')
 var Crawler = require("crawler");
 var url = require('url');
@@ -6,10 +7,11 @@ var jsdom = require('jsdom');
 var utils = require('./utils')
 
 var current_book = { }
+var bar
 
 var c = new Crawler({
     jQuery: jsdom,
-    maxConnections : 10,
+    maxConnections : 100,
     forceUTF8:true,
   // incomingEncoding: 'gb2312',
     // This will be called for each crawled page
@@ -65,6 +67,10 @@ function start(num){
   current_book.one = 0;
   
   info(num)
+  
+  // bar = new ProgressBar('downloading :bar', { total: parseInt( arr[1]) });
+  //
+
 }
 
 function get_all_chapters(){
@@ -75,6 +81,17 @@ function get_all_chapters(){
   }
   
   utils.write_config(current_book)
+  
+
+  var green = '\u001b[42m \u001b[0m';
+  var red = '\u001b[41m \u001b[0m';
+  
+  bar = new ProgressBar('  downloading :title [:bar] :percent :elapseds', {
+    complete: green,
+    incomplete: red,
+    width: 20,
+    total: (current_book.chapters.length - 1)
+  });
 }
 
 function one(book, chapter){
@@ -92,12 +109,16 @@ function one(book, chapter){
         forceUTF8:true,
         // The global callback won't be called
         callback: function (error, result, $) {
+            //bar
+            // bar.complete
+            bar.tick({ title: current_book.one + '/'+ (current_book.chapters.length-1)  });
+          
             debug(error);
             debug('http://www.biquku.com/' + arr[0] +'/' + arr[1] + '/' + chapter + '.html')
             var content = $('#content').html();
             utils.write_chapter(current_book, chapter, content);
             
-            debug(current_book.one + '/'+ (current_book.chapters.length-1) )
+            console.log(' ------- ' + current_book.one + '/'+ (current_book.chapters.length-1) )
             
             if (current_book.one === current_book.chapters.length-1 ){
               debug('complete fetch!')
@@ -111,6 +132,6 @@ function one(book, chapter){
 //   }, t)
 }
 
-// start('0/330');
+start('0/330');
 // http://www.biquku.com/6/6327/
-start('6/6327')
+// start('6/6327')
