@@ -24,7 +24,6 @@ function addHistory(type, book, chapter)
 }
 
 function reset(){
-  
   type = getQueryStringByName('type')
   book = getQueryStringByName('book')
   chapter = getQueryStringByName('chapter')
@@ -32,7 +31,6 @@ function reset(){
   pre_chapter_info    = current_book.chapters[parseInt(chapter) - 1]
   chapter_info        = current_book.chapters[chapter]
   post_chapter_info   = current_book.chapters[parseInt(chapter) + 1]
-  
 }
 
 $(function(){
