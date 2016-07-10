@@ -1,10 +1,11 @@
 {
-  "name": "2323",
+  "name": "simplereader",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "hs dist -o",
+    "start":"pm2 start app.js -i 0 --name 'simplereader'",
+    "dev": "hs dist -o",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
