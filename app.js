@@ -27,11 +27,15 @@ app.use(etag());
 app.use(serve(__dirname + '/dist'));
 
 // 
-var index = require('./routes/index');
+// var index = require('./routes/index');
+// app.use(index.routes());
 
+const mount = require('mount-koa-routes');
 
-
-app.use(index.routes);
+// simple
+// mount(app);
+// with path
+mount(app, __dirname + '/routes', true);
 
 
 app.listen(9090);

@@ -13,6 +13,7 @@
   "dependencies": {
     "crawler": "^0.4.3",
     "debug": "^2.2.0",
+    "hd-crawler": "^1.0.3",
     "jsdom": "^9.4.1",
     "koa": "^2.0.0",
     "koa-compress": "^2.0.0",
@@ -22,6 +23,7 @@
     "koa-router": "^7.0.1",
     "koa-static": "^3.0.0",
     "mkdirp": "^0.5.1",
+    "mount-koa-routes": "^2.0.1",
     "progress": "^1.1.8"
   }
 }
