@@ -26,6 +26,14 @@ app.use(etag());
 // or use absolute paths
 app.use(serve(__dirname + '/dist'));
 
+// 
+var index = require('./routes/index');
+
+
+
+app.use(index.routes);
+
+
 app.listen(9090);
 
 console.log('listening on port 9090');
