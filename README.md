@@ -1,10 +1,34 @@
 # Huge Dominate《大主宰》
 
 
+## Install
+
+
 ```
-$ book 330
+$ npm i -g hd-crawler
 ```
 
+## Usages
+
+```
+$ crawler -h
+
+  Usage: crawler [options]
+
+  Options:
+
+    -h, --help             output usage information
+    -V, --version          output the version number
+    -c, --category [type]  category
+    -b, --book [type]      book
+    -p, --path [type]      path default dist/
+```
+
+or
+
+```
+$ crawler -b 330 -c 0
+```
 
 ## Documents
 
