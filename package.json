@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start app.js -i 0 --name 'simplereader'",
+    "start": " ./node_modules/.bin/nodemon app.js",
+    "p": "pm2 start app.js -i 0 --name 'simplereader'",
     "dev": "hs dist -o",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,5 +26,8 @@
     "mkdirp": "^0.5.1",
     "mount-koa-routes": "^2.0.1",
     "progress": "^1.1.8"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.2"
   }
 }
