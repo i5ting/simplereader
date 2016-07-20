@@ -1,11 +1,12 @@
-var serve = require('koa-static');
-var Koa = require('koa');
-var app = new Koa();
+const Koa = require('koa');
+const app = new Koa();
 
-var favicon = require('koa-favicon');
-var compress = require('koa-compress')
-var conditional = require('koa-conditional-get');
-var etag = require('koa-etag');
+const favicon = require('koa-favicon');
+const compress = require('koa-compress')
+const conditional = require('koa-conditional-get');
+const etag = require('koa-etag');
+const serve = require('koa-static');
+const mount = require('mount-koa-routes');
 
 app.use(compress({
   filter: function (content_type) {
@@ -15,29 +16,22 @@ app.use(compress({
   flush: require('zlib').Z_SYNC_FLUSH
 }))
 
-
-app.use(favicon(__dirname + '/public/favicon.ico'));
+// app.use(favicon(__dirname + '/public/favicon.ico'));
 
 // etag works together with conditional-get
 app.use(conditional());
 app.use(etag());
-
-
 // or use absolute paths
 app.use(serve(__dirname + '/dist'));
 
-// 
-// var index = require('./routes/index');
-// app.use(index.routes());
 
-const mount = require('mount-koa-routes');
+// bind faye
+require('./faye')(app)
 
-// simple
-// mount(app);
-// with path
+// mount routes
 mount(app, __dirname + '/routes', true);
 
-
+// start server
 app.listen(9090);
 
 console.log('listening on port 9090');

@@ -11,6 +11,8 @@ router.get('/:category/:book', function (ctx, next) {
   require('hd-crawler')(category, book);
   
   ctx.body = 'this /book/' + category + '/' + book
+  
+  console.log(ctx.app.faye)
 })
 
 module.exports = router
