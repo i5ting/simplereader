@@ -38,7 +38,7 @@ $(function(){
   book = getQueryStringByName('book')
   chapter = getQueryStringByName('chapter')
   
-  $.getJSON('book/' + type + '/' + book + '/book.json', function(data){
+  $.getJSON('/book/' + type + '/' + book + '/book.json', function(data){
     current_book = data;
     
     pre_chapter_info    = current_book.chapters[parseInt(chapter) - 1]
@@ -53,7 +53,7 @@ $(function(){
     
     $('title').html(chapter_info.title)
     $('.chapter_title').html(chapter_info.title)
-    $('#content').load('book/' + type + '/' + book + '/' + chapter_info.url);
+    $('#content').load('/book/' + type + '/' + book + '/' + chapter_info.url);
   }
   
   //上一章
