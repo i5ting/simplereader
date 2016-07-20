@@ -21,7 +21,7 @@ var port = normalizePort(process.env.PORT || '9090');
 
 var server = http.createServer(app.callback());
 
-console.log(app.bayeux)
+// console.log(app.bayeux)
 
 app.bayeux.attach(server);
 

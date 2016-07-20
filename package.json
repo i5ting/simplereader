@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": " ./node_modules/.bin/nodemon bin/www",
+    "start": " ./node_modules/.bin/nodemon bin/www -w routes",
     "p": "pm2 start app.js -i 0 --name 'simplereader'",
     "dev": "hs dist -o",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,7 +15,7 @@
     "crawler": "^0.4.3",
     "debug": "^2.2.0",
     "faye": "^1.2.2",
-    "hd-crawler": "^1.0.3",
+    "hd-crawler": "^1.1.0",
     "jade": "^1.11.0",
     "jsdom": "^9.4.1",
     "koa": "^2.0.0",

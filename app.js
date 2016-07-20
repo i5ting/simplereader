@@ -30,7 +30,6 @@ app.use(etag());
 // or use absolute paths
 app.use(serve(__dirname + '/dist'));
 
-
 // bind faye
 require('./faye')(app)
 
