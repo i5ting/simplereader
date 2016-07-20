@@ -7,6 +7,12 @@ const conditional = require('koa-conditional-get');
 const etag = require('koa-etag');
 const serve = require('koa-static');
 const mount = require('mount-koa-routes');
+var views = require('koa-views');
+
+// Must be used before any router is used
+app.use(views(__dirname + '/views', {
+    extension: 'jade'
+}));
 
 app.use(compress({
   filter: function (content_type) {
@@ -32,6 +38,8 @@ require('./faye')(app)
 mount(app, __dirname + '/routes', true);
 
 // start server
-app.listen(9090);
+// app.listen(9090);
 
-console.log('listening on port 9090');
+// console.log('listening on port 9090');
+
+module.exports = app

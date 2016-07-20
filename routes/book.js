@@ -10,9 +10,23 @@ router.get('/:category/:book', function (ctx, next) {
 
   require('hd-crawler')(category, book);
   
-  ctx.body = 'this /book/' + category + '/' + book
+  // ctx.body = 'this /book/' + category + '/' + book
   
-  console.log(ctx.app.faye)
+  
+  
+  setTimeout(function() {
+    console.log(ctx.app.faye)
+    console.log('publish')
+    ctx.app.faye.publish('/messages', {
+      text: 'Hello world'
+    });
+    
+  } ,2000)
+  
+  return ctx.render('books/index', {
+    'category' : category,
+    'book' : book
+  });
 })
 
 module.exports = router
