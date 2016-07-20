@@ -28,7 +28,7 @@ app.use(compress({
 app.use(conditional());
 app.use(etag());
 // or use absolute paths
-app.use(serve(__dirname + '/dist'));
+app.use(serve(__dirname + '/public'));
 
 // bind faye
 require('./faye')(app)

@@ -10,7 +10,7 @@ router.get('/:category/:book', function (ctx, next) {
 
   require('hd-crawler')(category, book, function (current, count) {
     console.log(current + '/' + count)
-  });
+  }, 'public/book');
   
   // // ctx.body = 'this /book/' + category + '/' + book
   // setTimeout(function() {
