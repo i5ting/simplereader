@@ -10,18 +10,12 @@ router.get('/:category/:book', function (ctx, next) {
 
   require('hd-crawler')(category, book, function (current, count) {
     console.log(current + '/' + count)
+    ctx.app.faye.publish('/'+ category + '/' + book, {
+      current: current,
+      count: count
+    });
   }, 'public/book');
-  
-  // // ctx.body = 'this /book/' + category + '/' + book
-  // setTimeout(function() {
-  //   console.log(ctx.app.faye)
-  //   console.log('publish')
-  //   ctx.app.faye.publish('/messages', {
-  //     text: 'Hello world'
-  //   });
-  //
-  // } ,2000)
-  //
+
   return ctx.render('books/index', {
     'category' : category,
     'book' : book
