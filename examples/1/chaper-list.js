@@ -41,3 +41,4 @@ var c = new Crawler({
 });
 
 c.queue('http://www.biquku.com/0/330/');
+console.log(c)
